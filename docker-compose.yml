@@ -1,0 +1,26 @@
+version: '3.9'
+
+services:
+  blog:
+    container_name: blog
+    build: .
+    command: uvicorn main:app --host 0.0.0.0 --port 8080
+    env_file: .env
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+
+  db:
+    container_name: db
+    image: postgres:13.4-alpine
+    restart: unless-stopped
+    env_file:
+      - .env
+    volumes:
+      - postgres:/var/lib/postgresql/data
+      - ./migrations:/app/migrations
+      - ./scripts:/app/scripts
+
+volumes:
+  postgres:
