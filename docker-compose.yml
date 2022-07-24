@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   blog:
-    container_name: blog
+    container_name: bootcamp_blog
     build: .
     command: uvicorn main:app --host 0.0.0.0 --port 8080
     env_file: .env
@@ -12,7 +12,7 @@ services:
       - db
 
   db:
-    container_name: db
+    container_name: bootcamp_db
     image: postgres:13.4-alpine
     restart: unless-stopped
     env_file:
