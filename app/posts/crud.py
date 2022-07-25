@@ -24,7 +24,7 @@ async def select_posts(limit: int, page: int, search: str) -> List[dict]:
     LIMIT :limit
     OFFSET :offset
     """
-    return await database.fetch_all(query=query, values={"limit": limit, "offset": offset, "search": search})
+    return await database.fetch_all(query=query, values={"limit": limit, "offset": offset, "search": f"%{search}%" if search else None})
 
 
 async def count_total_post(search: str) -> int:
@@ -34,7 +34,7 @@ async def count_total_post(search: str) -> int:
     WHERE (((:search)::varchar IS NULL OR title ilike :search)
           OR ((:search)::varchar IS NULL OR content ilike :search))
     """
-    count = await database.fetch_one(query=query, values={"search": search})
+    count = await database.fetch_one(query=query, values={"search": f"%{search}%" if search else None})
     return int(count["count"]) if count else 0
 
 
