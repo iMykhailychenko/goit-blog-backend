@@ -18,5 +18,5 @@ def pagination(data: List, limit: int, page: int, total: int) -> dict:
         "page": page,
         "limit": limit,
         "total_items": total,
-        "total_pages": ceil(total / page),
+        "total_pages": ceil(total / limit),
     }
