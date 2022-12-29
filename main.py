@@ -4,6 +4,7 @@ import db
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.long import long
 from app.posts import posts
 from app.comments import comments
 
@@ -18,6 +19,7 @@ app.add_middleware(
 )
 
 app.include_router(posts.router)
+app.include_router(long.router)
 app.include_router(comments.router)
 
 
